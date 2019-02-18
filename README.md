@@ -3,6 +3,7 @@
 Install Windows Service boilerplate into specific Web API / Console App
 
 [![NuGet](https://img.shields.io/nuget/v/wk.WindowsService.svg)](https://www.nuget.org/packages/wk.WindowsService)
+[![NuGet](https://img.shields.io/nuget/v/wk.ConsoleService.svg)](https://www.nuget.org/packages/wk.ConsoleService)
 
 ## Installation
 
