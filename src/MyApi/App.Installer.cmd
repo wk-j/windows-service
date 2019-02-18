@@ -7,5 +7,5 @@ SET QHOST=%COMPUTERNAME%
 
 net user %QUSER% %QPASSWORD% /add
 icacls "%QPATH%" /grant %QUSER%:(OI)(CI)WRX /t
-sc create %QNAME% binPath="%QPATH%\%QAPP%" obj=".\LocalSystem" password="%QPASSWORD%"
+sc create %QNAME% binPath= "%QPATH%\%QAPP% --urls=http://*:9000" obj= ".\LocalSystem" password= "%QPASSWORD%"
 sc start %QNAME%
