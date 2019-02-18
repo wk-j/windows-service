@@ -1,4 +1,5 @@
-SET QAPP=MyApi.exe
+SET QUSER=BCircle.MyApi.exe
+SET QNAME=BCircle.MyApi.exe
 
-sc delete %QAPP%
-net user BCircle.%QAPP% /delete
+sc delete %QUSER%
+net user %QNAME% /delete

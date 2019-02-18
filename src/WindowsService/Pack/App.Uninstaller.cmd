@@ -1,4 +1,6 @@
-SET QAPP={exe}
+SET QUSER=BCircle.{exe}
+SET QNAME=BCircle.{exe}
 
-sc delete %QAPP%
-net user BCircle.%QAPP% /delete
+sc stop   %QNAME%
+sc delete %QNAME%
+net user  %QUSER% /delete
