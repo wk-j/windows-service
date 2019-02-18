@@ -5,17 +5,20 @@ using PS = StartProcess.Processor;
 using ProjectParser;
 
 var nugetToken = EnvironmentVariable("npi");
-var name = "WindowsService";
+
 
 var currentDir = new DirectoryInfo(".").FullName;
-var info = Parser.Parse($"src/{name}/{name}.csproj");
 var publishDir = ".publish";
 
 Task("Pack").Does(() => {
     CleanDirectory(publishDir);
-    DotNetCorePack($"src/{name}", new DotNetCorePackSettings {
-        OutputDirectory = publishDir
-    });
+
+    var app = new [] { "WindowsService", "ConsoleService" };
+    foreach (var item in app) {
+        DotNetCorePack($"src/{item}", new DotNetCorePackSettings {
+            OutputDirectory = publishDir
+        });
+    }
 });
 
 Task("Publish-Web").Does(() => {
@@ -29,18 +32,39 @@ Task("Publish-Web").Does(() => {
 Task("Publish-NuGet")
     .IsDependentOn("Pack")
     .Does(() => {
-        var nupkg = new DirectoryInfo(publishDir).GetFiles("*.nupkg").LastOrDefault();
-        var package = nupkg.FullName;
-        NuGetPush(package, new NuGetPushSettings {
-            Source = "https://www.nuget.org/api/v2/package",
-            ApiKey = nugetToken
-        });
+        var nupkg = new DirectoryInfo(publishDir).GetFiles("*.nupkg");
+        foreach(var item in nupkg) {
+            var package = item.FullName;
+            try {
+            NuGetPush(package, new NuGetPushSettings {
+                Source = "https://www.nuget.org/api/v2/package",
+                ApiKey = nugetToken
+            });
+            } catch (Exception ex) {
+                Error(ex.ToString());
+            }
+        }
 });
 
-Task("Install")
+Task("Install-Api")
     .IsDependentOn("Pack")
     .Does(() => {
         var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+        var name = "WindowsService";
+        var info = Parser.Parse($"src/{name}/{name}.csproj");
+
+        PS.StartProcess($"dotnet tool uninstall -g {info.PackageId}");
+        PS.StartProcess($"dotnet tool install   -g {info.PackageId}  --add-source {currentDir}/{publishDir} --version {info.Version}");
+    });
+Task("Install-Console")
+    .IsDependentOn("Pack")
+    .Does(() => {
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+        var name = "ConsoleService";
+        var info = Parser.Parse($"src/{name}/{name}.csproj");
+
         PS.StartProcess($"dotnet tool uninstall -g {info.PackageId}");
         PS.StartProcess($"dotnet tool install   -g {info.PackageId}  --add-source {currentDir}/{publishDir} --version {info.Version}");
     });

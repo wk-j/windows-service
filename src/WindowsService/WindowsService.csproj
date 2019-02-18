@@ -10,7 +10,5 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
-    <ItemGroup>
-        <EmbeddedResource Include="Pack\*.*" />
-    </ItemGroup>
+
 </Project>

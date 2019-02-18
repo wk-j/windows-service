@@ -1,6 +1,6 @@
 ## Windows Service
 
-Install Windows Service boilerplate into specific Web API
+Install Windows Service boilerplate into specific Web API / Console App
 
 [![NuGet](https://img.shields.io/nuget/v/wk.WindowsService.svg)](https://www.nuget.org/packages/wk.WindowsService)
 
@@ -8,6 +8,7 @@ Install Windows Service boilerplate into specific Web API
 
 ```bash
 dotnet tool install -g wk.WindowsService
+dotnet tool install -g wk.ConsoleService
 ```
 
 ## Usage
@@ -16,9 +17,10 @@ Install template
 
 ```bash
 wk-windows-service <APP-PATH>
+wk-console-service <APP-PATH>
 ```
 
-Update Program.cs
+Web API
 
 ```csharp
 public static void Main(string[] args) {
@@ -33,5 +35,17 @@ public static void Main(string[] args) {
     } else {
         CreateWebHostBuilder(args).Build().Run();
     }
+}
+```
+
+Console App
+
+```csharp
+static async Task Main(string[] args) {
+    await new HostBuilder()
+        .ConfigureServices((hostContext, services) => {
+            services.AddHostedService<ConsoleService>();
+        })
+    .RunConsoleAsync();
 }
 ```
