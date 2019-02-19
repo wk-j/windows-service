@@ -41,7 +41,7 @@ Task("Publish-NuGet")
                 ApiKey = nugetToken
             });
             } catch (Exception ex) {
-                Error(ex.ToString());
+                Warning(ex.ToString());
             }
         }
 });
