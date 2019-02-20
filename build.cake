@@ -23,7 +23,7 @@ Task("Pack").Does(() => {
 
 Task("Publish-Web").Does(() => {
     CleanDirectory(publishDir);
-    DotNetCorePublish($"src/MyApi", new DotNetCorePublishSettings {
+    DotNetCorePublish($"tests/MyApi", new DotNetCorePublishSettings {
         Configuration = "Release",
         OutputDirectory = System.IO.Path.Combine(publishDir, "MyApi")
     });
