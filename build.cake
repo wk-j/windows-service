@@ -23,11 +23,20 @@ Task("Pack").Does(() => {
 
 Task("Publish-Web").Does(() => {
     CleanDirectory(publishDir);
-    DotNetCorePublish($"src/MyApi", new DotNetCorePublishSettings {
+    DotNetCorePublish($"tests/MyApi", new DotNetCorePublishSettings {
         Configuration = "Release",
         OutputDirectory = System.IO.Path.Combine(publishDir, "MyApi")
     });
 });
+
+Task("Publish-Console").Does(() => {
+    CleanDirectory(publishDir);
+    DotNetCorePublish($"tests/MyConcole", new DotNetCorePublishSettings {
+        Configuration = "Release",
+        OutputDirectory = System.IO.Path.Combine(publishDir, "MyConsole")
+    });
+});
+
 
 Task("Publish-NuGet")
     .IsDependentOn("Pack")

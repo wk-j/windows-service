@@ -43,10 +43,21 @@ Console App
 
 ```csharp
 static async Task Main(string[] args) {
-    await new HostBuilder()
+    var isService = !(Debugger.IsAttached || args.Contains("--console"));
+    var builder = new HostBuilder()
         .ConfigureServices((hostContext, services) => {
-            services.AddHostedService<ConsoleService>();
-        })
-    .RunConsoleAsync();
+            services.AddHostedService<ConsoleService.BackgroundService>();
+        });
+
+    if (isService) {
+        await builder.RunAsServiceAsync();
+    } else {
+        await builder.RunConsoleAsync();
+    }
 }
 ```
+
+## Reference
+
+- [Host ASP.NET Core in a Windows Service](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-2.2)
+- [Running a .NET Core Generic Host App as a Windows Service](https://www.stevejgordon.co.uk/running-net-core-generic-host-applications-as-a-windows-service)

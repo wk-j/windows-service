@@ -10,7 +10,7 @@ namespace ConsoleService {
         static async Task Main(string[] args) {
             if (args.Length != 1) {
                 Console.WriteLine("Invalid arguments");
-                Console.WriteLine(" wk-windows-service <APP-DIR>");
+                Console.WriteLine(" wk-console-service <APP-DIR>");
                 return;
             }
 
@@ -21,11 +21,19 @@ namespace ConsoleService {
             foreach (var item in names) {
                 var stream = asm.GetManifestResourceStream(item);
                 var fileName = item.Replace("ConsoleService.Pack.", string.Empty);
-                var path = Path.Combine(dir, fileName);
-
+                var info = new FileInfo(fileName);
                 var reader = new StreamReader(stream);
                 var content = reader.ReadToEnd().Replace("{exe}", exeName);
-                File.WriteAllText(path, content);
+
+                if (info.Extension == ".targets" || info.Extension == ".cmd") {
+                    var path = Path.Combine(dir, fileName);
+                    File.WriteAllText(path, content);
+                } else {
+                    var path = Path.Combine(dir, "Pack");
+                    if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                    var newPath = Path.Combine(path, fileName);
+                    File.WriteAllText(newPath, content);
+                }
             }
         }
     }
