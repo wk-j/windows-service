@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <LangVersion>7.3</LangVersion>
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>wk-console-service</ToolCommandName>
-    <PackageId>wk.ConsoleService</PackageId>
-    <Version>0.1.0</Version>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <LangVersion>7.3</LangVersion>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>wk-console-service</ToolCommandName>
+        <PackageId>wk.ConsoleService</PackageId>
+        <Version>0.1.1</Version>
+    </PropertyGroup>
 </Project>
