@@ -50,6 +50,9 @@ static async Task Main(string[] args) {
         });
 
     if (isService) {
+        var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
+        var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+        Directory.SetCurrentDirectory(pathToContentRoot);
         await builder.RunAsServiceAsync();
     } else {
         await builder.RunConsoleAsync();
