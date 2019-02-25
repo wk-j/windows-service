@@ -4,10 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleService {
-    public class ConsoleService : IHostedService, IDisposable {
+    public class BackgroundService : IHostedService, IDisposable {
         private Timer _timer;
 
-        public ConsoleService() {
+        public BackgroundService() {
         }
 
         public Task StartAsync(CancellationToken cancellationToken) {

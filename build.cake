@@ -29,6 +29,15 @@ Task("Publish-Web").Does(() => {
     });
 });
 
+Task("Publish-Console").Does(() => {
+    CleanDirectory(publishDir);
+    DotNetCorePublish($"tests/MyConcole", new DotNetCorePublishSettings {
+        Configuration = "Release",
+        OutputDirectory = System.IO.Path.Combine(publishDir, "MyConsole")
+    });
+});
+
+
 Task("Publish-NuGet")
     .IsDependentOn("Pack")
     .Does(() => {
@@ -41,7 +50,7 @@ Task("Publish-NuGet")
                 ApiKey = nugetToken
             });
             } catch (Exception ex) {
-                Warning(ex.ToString());
+                Error(ex.Message);
             }
         }
 });

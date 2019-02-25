@@ -1,5 +1,4 @@
 rem SET QUSER=BCircle.{exe}
-
 SET QNAME=BCircle.{exe}
 SET QPASSWORD=
 SET QAPP={exe}
