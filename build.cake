@@ -80,7 +80,7 @@ Task("Install-Console")
         var info = Parser.Parse($"src/{name}/{name}.csproj");
 
         PS.StartProcess($"dotnet tool uninstall -g {info.PackageId}");
-        PS.StartProcess($"dotnet tool install   -g {info.PackageId}  --add-source {currentDir}/{publishDir} --version {info.Version}");
+        PS.StartProcess($"dotnet tool install   -g {info.PackageId}  --add-source {currentDir}/{publishDir} --version {version}");
     });
 
 var target = Argument("target", "Pack");
