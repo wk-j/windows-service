@@ -2,6 +2,7 @@
 
 Install Windows Service boilerplate into specific Web API / Console App
 
+[![Build Status](https://dev.azure.com/wk-j/windows-service/_apis/build/status/wk-j.windows-service?branchName=master)](https://dev.azure.com/wk-j/windows-service/_build/latest?definitionId=19&branchName=master)
 [![NuGet](https://img.shields.io/nuget/v/wk.WindowsService.svg)](https://www.nuget.org/packages/wk.WindowsService)
 [![NuGet](https://img.shields.io/nuget/v/wk.ConsoleService.svg)](https://www.nuget.org/packages/wk.ConsoleService)
 
