@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+        <RuntimeIdentifier>win7-x64;osx-x64</RuntimeIdentifier>
         <SelfContained>false</SelfContained>
         <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
         <LangVersion>7.3</LangVersion>

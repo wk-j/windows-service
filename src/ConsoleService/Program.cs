@@ -25,7 +25,7 @@ namespace ConsoleService {
                 var reader = new StreamReader(stream);
                 var content = reader.ReadToEnd().Replace("{exe}", exeName);
 
-                if (info.Extension == ".targets" || info.Extension == ".cmd") {
+                if (info.Extension == ".targets" || info.Extension == ".cmd" || info.Name.Contains("Main.cs")) {
                     var path = Path.Combine(dir, fileName);
                     File.WriteAllText(path, content);
                 } else {

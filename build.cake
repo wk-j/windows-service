@@ -9,14 +9,19 @@ var nugetToken = EnvironmentVariable("npi");
 
 var currentDir = new DirectoryInfo(".").FullName;
 var publishDir = ".publish";
+var version = DateTime.Now.ToString("yy.MM.dd.HHmm");
 
 Task("Pack").Does(() => {
     CleanDirectory(publishDir);
 
+    var settings = new DotNetCoreMSBuildSettings();
+    settings.Properties["Version"] = new string[] { version };
+
     var app = new [] { "WindowsService", "ConsoleService" };
     foreach (var item in app) {
         DotNetCorePack($"src/{item}", new DotNetCorePackSettings {
-            OutputDirectory = publishDir
+            OutputDirectory = publishDir,
+            MSBuildSettings = settings
         });
     }
 });
