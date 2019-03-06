@@ -16,9 +16,14 @@ namespace ConsoleService {
 
         class AppSettings { }
 
-        static (AppSettings, IConfigurationRoot) LoadSettings() {
+        static string GetContentRoot() {
             var pathToExe = Assembly.GetExecutingAssembly().Location;
             var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+            return pathToContentRoot;
+        }
+
+        static (AppSettings, IConfigurationRoot) LoadSettings() {
+            var pathToContentRoot = GetContentRoot();
             var builder = new ConfigurationBuilder()
                  .SetBasePath(pathToContentRoot)
                  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
@@ -41,8 +46,7 @@ namespace ConsoleService {
                 });
 
             if (isService) {
-                var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
-                var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+                var pathToContentRoot = GetContentRoot();
                 Directory.SetCurrentDirectory(pathToContentRoot);
                 await builder.RunAsServiceAsync();
             } else {

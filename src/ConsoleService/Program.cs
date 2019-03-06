@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace ConsoleService {
     class Program {
-        static async Task Main(string[] args) {
+        static void Main(string[] args) {
             if (args.Length != 1) {
                 Console.WriteLine("Invalid arguments");
                 Console.WriteLine(" wk-console-service <APP-DIR>");
@@ -18,6 +18,7 @@ namespace ConsoleService {
             var exeName = new DirectoryInfo(dir).Name + ".exe";
             var asm = Assembly.GetEntryAssembly(); ;
             var names = asm.GetManifestResourceNames();
+
             foreach (var item in names) {
                 var stream = asm.GetManifestResourceStream(item);
                 var fileName = item.Replace("ConsoleService.Pack.", string.Empty);

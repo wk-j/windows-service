@@ -4,6 +4,7 @@
         <SelfContained>false</SelfContained>
         <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
         <LangVersion>8.0</LangVersion>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>

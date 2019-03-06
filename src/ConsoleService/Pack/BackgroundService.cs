@@ -1,36 +1,32 @@
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleService {
     public class BackgroundService : IHostedService, IDisposable {
-        private Timer _timer;
 
-        public BackgroundService() {
+        ILogger<BackgroundService> _logger;
+
+        public BackgroundService(ILogger<BackgroundService> logger) {
+            _logger = logger;
         }
 
         public Task StartAsync(CancellationToken cancellationToken) {
-            Console.WriteLine("Timed Background Service is starting.");
-
-            _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(5));
+            _logger.LogInformation("background service is starting.");
 
             return Task.CompletedTask;
         }
 
-        private void DoWork(object state) {
-            Console.WriteLine("Timed Background Service is working.");
-        }
 
         public Task StopAsync(CancellationToken cancellationToken) {
-            Console.WriteLine("Timed Background Service is stopping.2");
-            _timer?.Change(Timeout.Infinite, 0);
+            _logger.LogInformation("background service is stopping.");
             return Task.CompletedTask;
         }
 
         public void Dispose() {
-            _timer?.Dispose();
+
         }
     }
 }
